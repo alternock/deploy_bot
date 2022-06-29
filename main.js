@@ -1,3 +1,5 @@
+
+const axios = require("axios");
 const TeleBot = require('telebot');
 //
 let SECRET_TOKEN = require("./config/secret_token");
@@ -10,9 +12,6 @@ const bot = new TeleBot({
     token: TOKEN
 });
 
-
-// Great API for this bot
-const API = 'https://thecatapi.com/api/images/get?format=src&type=';
 
 // Command keyboard
 const replyMarkup = bot.keyboard([
@@ -33,12 +32,15 @@ bot.on(['/start', '/help'], function (msg) {
 });
 
 
-bot.on(['/products'], function (msg) {
+bot.on(['/products'], async function (msg) {
+    const url = "https://delicate-druid-44e67f.netlify.app/get_products";
     let id = msg.chat.id; 
-    //let txt = msg.text;
-    let arr = ["foo","bar","qux","thud","octo"];
-
-    return bot.sendMessage(id,arr.toString(),{buyButtons});
+    try{
+        let arr = await axios.get(url);
+        return bot.sendMessage(id,arr.toString(),{buyButtons});
+    }catch(err){
+        console.log(err);
+    }
 });
 
 // Start getting updates
