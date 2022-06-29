@@ -37,7 +37,8 @@ bot.on(['/products'], async function (msg) {
     let id = msg.chat.id; 
     try{
         let arr = await axios.get(url);
-        return bot.sendMessage(id,arr.toString(),{buyButtons});
+        let {data} = arr;
+        return bot.sendMessage(id,JSON.stringify(data.products),{buyButtons});
     }catch(err){
         console.log(err);
     }
