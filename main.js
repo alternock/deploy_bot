@@ -33,7 +33,7 @@ bot.on(['/start', '/help'], function (msg) {
 
 
 bot.on(['/products'], async function (msg) {
-    const url = "https://delicate-druid-44e67f.netlify.app/get_products";
+    const url = "https://prismatic-otter-bc48dd.netlify.app/get_products";
     let id = msg.chat.id; 
     try{
         let arr = await axios.get(url);
